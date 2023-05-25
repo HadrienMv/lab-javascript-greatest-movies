@@ -32,7 +32,6 @@ function scoresAverage(moviesArray) {
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
     let dramaMovies = moviesArray.filter(element => element.genre.includes('Drama'))
-    console.log(dramaMovies)
     if(dramaMovies.length > 0) {
         let myAverage = dramaMovies.reduce((total, current) => {
             if(typeof current.score === `number`){
@@ -50,13 +49,47 @@ function dramaMoviesScore(moviesArray) {
 }
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+    let sortedArray =[...moviesArray]
+    sortedArray.sort((a,b) => {
+        if(a.year != b.year) {
+            return a.year - b.year
+        }
+        else {
+            return a.title.localeCompare(b.title)
+        }
+    })
+    return sortedArray
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+    let sortedArray = [...moviesArray]
+    sortedArray.sort((a,b) => {
+        return a.title.localeCompare(b.title)
+    })
+    let titlesArray = []
+    sortedArray.forEach(item => titlesArray.push(item.title))
+    if(titlesArray.length>20) {
+        titlesArray.splice(20-titlesArray.length)
+    }
+    return titlesArray
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+    console.log(moviesArray)
+    let transformedArray = [...moviesArray]
+    transformedArray.map(item => {
+        let myHours = item.duration[0]
+        let myMinutes = item.duration[3,4]
+        if(+item.duration[4]) {
+            myMinutes = myMinutes[0]
+        }
+        item.duration = `${myHours*60 + myMinutes}min` 
+    })
+    return transformedArray
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
